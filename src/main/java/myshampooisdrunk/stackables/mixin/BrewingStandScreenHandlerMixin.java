@@ -1,3 +1,6 @@
+//Not my code, it's CursedFlames' https://github.com/CursedFlame
+//https://github.com/CursedFlames/StackablePotions/blob/master/src/main/java/cursedflames/stackablepotions/mixin/BrewingStandScreenHandlerMixin.java
+
 package myshampooisdrunk.stackables.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +30,6 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
             cancellable = true)
     private void onTransferSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> info,
                                 ItemStack itemStack, Slot slot, ItemStack itemStack2) {
-        // Replace vanilla shift-click behavior for potions with our own, to prevent getting more than one in a slot
         if (slot.canInsert(itemStack)) {
             boolean movedItems = false;
             for (int i = 0; i < 3; i++) {
@@ -40,8 +42,6 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
                     }
                     movedItems = true;
                     slot2.markDirty();
-                    // We loop through all the slots without breaking on a successful transfer,
-                    // so that you can shift-click into all potion slots at once
                     if (itemStack2.isEmpty()) break;
                 }
             }
@@ -56,10 +56,6 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean onTransferSlotRedirect(ItemStack stack, PlayerEntity player, int index) {
-        // Block the default shift-clicking into potion slots so we can do it ourselves.
-        // Unfortunately because we're cancelling the vanilla `if`, the else ifs run, meaning the player can
-        // shift-click into potion slots with more than 3 potions and the rest of the stack will also get moved around
-        // kinda annoying but whatever, don't know of a clean solution for it.
         return false;
     }
 }
