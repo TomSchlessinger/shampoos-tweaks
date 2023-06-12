@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public final class Stackables implements ModInitializer {
     public static final String MOD_ID = "stackable_unstackables";
@@ -35,7 +36,7 @@ public final class Stackables implements ModInitializer {
     private void stackInit(){
         ((StatusEffectChanger) FoodComponents.ENCHANTED_GOLDEN_APPLE).setStatusEffects(getStatusEffects(new StatusEffectInstance[] {
                 new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE,12000,0),
-                new StatusEffectInstance(StatusEffects.RESISTANCE,600,0),
+                new StatusEffectInstance(StatusEffects.RESISTANCE,600,1),
                 new StatusEffectInstance(StatusEffects.ABSORPTION, 1200, 1),
                 new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1)}
                 ,new float[]{1F,1F,1F,1F}
@@ -86,7 +87,8 @@ public final class Stackables implements ModInitializer {
         ((StackChanger) Items.BEETROOT_SOUP).setMaxCount(ModConfigs.MAX_STEW_STACK);
         ((StackChanger) Items.SUSPICIOUS_STEW).setMaxCount(ModConfigs.MAX_SUS_STACK);
         ((StackChanger) Items.ENCHANTED_BOOK).setMaxCount(ModConfigs.MAX_BOOK_STACK);
-
+        ((StackChanger)Items.BAMBOO_CHEST_RAFT).setMaxCount(ModConfigs.BOAT_STACK);
+        ((StackChanger)Items.BAMBOO_RAFT).setMaxCount(ModConfigs.BOAT_STACK);
 
     }
 

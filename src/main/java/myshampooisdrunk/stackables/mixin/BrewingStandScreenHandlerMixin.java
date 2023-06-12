@@ -24,8 +24,7 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
     }
 
     @Inject(method = "quickMove",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"),
             locals = LocalCapture.CAPTURE_FAILSOFT,
             cancellable = true)
     private void onTransferSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> info,
@@ -45,7 +44,6 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
                     if (itemStack2.isEmpty()) break;
                 }
             }
-            // returned value sets current slot
             if (movedItems) {
                 info.setReturnValue(ItemStack.EMPTY);
             }
@@ -53,8 +51,7 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
     }
 
     @Redirect(method = "quickMove",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"))
+            at = @At(value = "INVOKE",target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean onTransferSlotRedirect(ItemStack stack, PlayerEntity player, int index) {
         return false;
     }
