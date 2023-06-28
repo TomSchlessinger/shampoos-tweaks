@@ -1,5 +1,6 @@
 package myshampooisdrunk.stackables.mixin;
 
+import myshampooisdrunk.stackables.config.ModConfigs;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -22,6 +23,7 @@ public abstract class BeaconBlockEntityMixin {
 
     @Inject(method = "applyPlayerEffects", at = @At("HEAD"), cancellable = true)
     private static void applyPlayerEffectsModified(World world, BlockPos pos, int beaconLevel, StatusEffect primaryEffect, StatusEffect secondaryEffect, CallbackInfo ci) {
+        ModConfigs.registerConfigs();
         if (!world.isClient && primaryEffect != null) {
             //
             double d = (12.5)*(beaconLevel*(beaconLevel-1) + 2);

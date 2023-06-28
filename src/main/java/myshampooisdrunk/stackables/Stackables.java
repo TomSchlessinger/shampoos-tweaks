@@ -21,7 +21,8 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+
+import static myshampooisdrunk.stackables.config.ModConfigs.CRYSTAL_MULTIPLIER;
 
 public final class Stackables implements ModInitializer {
     public static final String MOD_ID = "stackable_unstackables";
@@ -64,8 +65,6 @@ public final class Stackables implements ModInitializer {
         ((StackChanger) Items.DARK_OAK_CHEST_BOAT).setMaxCount(ModConfigs.BOAT_STACK);
         ((StackChanger) Items.MANGROVE_BOAT).setMaxCount(ModConfigs.BOAT_STACK);
         ((StackChanger) Items.MANGROVE_CHEST_BOAT).setMaxCount(ModConfigs.BOAT_STACK);
-        ((StackChanger) Items.CHERRY_BOAT).setMaxCount(ModConfigs.BOAT_STACK);
-        ((StackChanger) Items.CHERRY_CHEST_BOAT).setMaxCount(ModConfigs.BOAT_STACK);
         ((StackChanger) Items.MUSIC_DISC_13).setMaxCount(ModConfigs.DISC_STACK);
         ((StackChanger) Items.MUSIC_DISC_CAT).setMaxCount(ModConfigs.DISC_STACK);
         ((StackChanger) Items.MUSIC_DISC_BLOCKS).setMaxCount(ModConfigs.DISC_STACK);
@@ -87,8 +86,7 @@ public final class Stackables implements ModInitializer {
         ((StackChanger) Items.BEETROOT_SOUP).setMaxCount(ModConfigs.MAX_STEW_STACK);
         ((StackChanger) Items.SUSPICIOUS_STEW).setMaxCount(ModConfigs.MAX_SUS_STACK);
         ((StackChanger) Items.ENCHANTED_BOOK).setMaxCount(ModConfigs.MAX_BOOK_STACK);
-        ((StackChanger)Items.BAMBOO_CHEST_RAFT).setMaxCount(ModConfigs.BOAT_STACK);
-        ((StackChanger)Items.BAMBOO_RAFT).setMaxCount(ModConfigs.BOAT_STACK);
+        System.out.println("Crystal mult: " + CRYSTAL_MULTIPLIER);
 
     }
 

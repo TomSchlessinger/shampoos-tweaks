@@ -1,5 +1,6 @@
 package myshampooisdrunk.stackables.mixin;
 
+import myshampooisdrunk.stackables.config.ModConfigs;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ public abstract class PotionItemMixin {
     @Inject(method = "finishUsing(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;", cancellable = true,
             at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z", shift = At.Shift.BEFORE))
     public void finishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+        ModConfigs.registerConfigs();
         if (user instanceof PlayerEntity) ((PlayerEntity)user).getInventory().offerOrDrop(Items.GLASS_BOTTLE.getDefaultStack());
         cir.setReturnValue(stack);
     }

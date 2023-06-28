@@ -3,6 +3,7 @@
 
 package myshampooisdrunk.stackables.mixin;
 
+import myshampooisdrunk.stackables.config.ModConfigs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,12 +24,13 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
         super(type, syncId);
     }
 
-    @Inject(method = "quickMove",
+    @Inject(method = "transferSlot",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"),
             locals = LocalCapture.CAPTURE_FAILSOFT,
             cancellable = true)
     private void onTransferSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> info,
                                 ItemStack itemStack, Slot slot, ItemStack itemStack2) {
+        ModConfigs.registerConfigs();
         if (slot.canInsert(itemStack)) {
             boolean movedItems = false;
             for (int i = 0; i < 3; i++) {
@@ -50,7 +52,7 @@ public abstract class BrewingStandScreenHandlerMixin extends ScreenHandler {
         }
     }
 
-    @Redirect(method = "quickMove",
+    @Redirect(method = "transferSlot",
             at = @At(value = "INVOKE",target = "Lnet/minecraft/screen/BrewingStandScreenHandler$PotionSlot;matches(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean onTransferSlotRedirect(ItemStack stack, PlayerEntity player, int index) {
         return false;

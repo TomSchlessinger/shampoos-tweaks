@@ -66,7 +66,7 @@ public class GoofyExplosion extends Explosion {
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
 
     public GoofyExplosion(World world, @Nullable Entity entity, double x, double y, double z, float power, List<BlockPos> affectedBlocks, float multiplier) {
-        this(world, entity, x, y, z, power, false, Explosion.DestructionType.DESTROY_WITH_DECAY, affectedBlocks,multiplier);
+        this(world, entity, x, y, z, power, false, DestructionType.DESTROY, affectedBlocks,multiplier);
     }
 
     public GoofyExplosion(World world, @Nullable Entity entity, double x, double y, double z, float power, boolean createFire, Explosion.DestructionType destructionType, List<BlockPos> affectedBlocks, float multiplier) {
@@ -92,7 +92,7 @@ public class GoofyExplosion extends Explosion {
         this.z = z;
         this.createFire = createFire;
         this.destructionType = destructionType;
-        this.damageSource = damageSource == null ? world.getDamageSources().explosion(this) : damageSource;
+        this.damageSource = damageSource == null ? DamageSource.explosion(this) : damageSource;
         this.behavior = behavior == null ? this.chooseBehavior(entity) : behavior;
     }
 
@@ -166,7 +166,7 @@ public class GoofyExplosion extends Explosion {
                         if (this.world instanceof ServerWorld serverWorld) {
                             BlockEntity blockEntity = blockState.hasBlockEntity() ? this.world.getBlockEntity(blockPos) : null;
                             LootContext.Builder builder = (new LootContext.Builder(serverWorld)).random(this.world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockPos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, this.entity);
-                            if (this.destructionType == Explosion.DestructionType.DESTROY_WITH_DECAY) {
+                            if (this.destructionType == DestructionType.DESTROY) {
                                 builder.parameter(LootContextParameters.EXPLOSION_RADIUS, this.power);
                             }
 
@@ -205,7 +205,7 @@ public class GoofyExplosion extends Explosion {
     }
 
     public boolean shouldDestroy() {
-        return this.destructionType != Explosion.DestructionType.KEEP;
+        return this.destructionType != Explosion.DestructionType.NONE;
     }
 
     private static void tryMergeStack(ObjectArrayList<Pair<ItemStack, BlockPos>> stacks, ItemStack stack, BlockPos pos) {
@@ -241,7 +241,7 @@ public class GoofyExplosion extends Explosion {
         } else {
             Entity entity = this.entity;
             if (entity instanceof TntEntity tntEntity) {
-                return tntEntity.getOwner();
+                return tntEntity.getCausingEntity();
             } else {
                 if (entity instanceof LivingEntity) {
                     return (LivingEntity)entity;
@@ -282,7 +282,7 @@ public class GoofyExplosion extends Explosion {
                         double o = this.z;
 
                         for(float var21 = 0.3F; h > 0.0F; h -= 0.22500001F) {
-                            BlockPos blockPos = BlockPos.ofFloored(m, n, o);
+                            BlockPos blockPos = new BlockPos(m, n, o);
                             BlockState blockState = this.world.getBlockState(blockPos);
                             FluidState fluidState = this.world.getFluidState(blockPos);
                             if (!this.world.isInBuildLimit(blockPos)) {

@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(World.class)
 public interface WorldAccessor {
-    @Invoker
-    Explosion.DestructionType callGetDestructionType(GameRules.Key<GameRules.BooleanRule> gameRuleKey);
+    //@Invoker
+    //Explosion.DestructionType callGetDestructionType(GameRules.Key<GameRules.BooleanRule> gameRuleKey);
 }

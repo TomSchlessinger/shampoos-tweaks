@@ -16,6 +16,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method="tryUseTotem", at = @At("HEAD"),cancellable = true)
     private void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> cir){
+        ModConfigs.registerConfigs();
         if ((LivingEntity)(Object)this instanceof ServerPlayerEntity player){
             ItemCooldownManager manager = player.getItemCooldownManager();
             if(!manager.isCoolingDown(Items.TOTEM_OF_UNDYING)){

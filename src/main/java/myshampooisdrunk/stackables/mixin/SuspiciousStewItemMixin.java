@@ -1,5 +1,6 @@
 package myshampooisdrunk.stackables.mixin;
 
+import myshampooisdrunk.stackables.config.ModConfigs;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -16,6 +17,7 @@ public class SuspiciousStewItemMixin extends Item{
     }
     @Inject(method = "finishUsing", at = @At("HEAD"), cancellable = true)
     private void use(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir){
+        ModConfigs.registerConfigs();
         ItemStack item = super.finishUsing(stack,world,user);
         cir.setReturnValue(new ItemStack(Items.BOWL));
         if(!stack.isEmpty() && user instanceof PlayerEntity p){

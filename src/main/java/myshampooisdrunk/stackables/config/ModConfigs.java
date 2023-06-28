@@ -18,6 +18,9 @@ public class ModConfigs {
     public static int CAKE_STACK;
     public static int MAX_BOOK_STACK;
     public static int TOTEM_COOLDOWN;
+    public static float CRYSTAL_MULTIPLIER;
+    public static float BED_MULTIPLIER;
+    public static float ANCHOR_MULTIPLIER;
 
     public static void registerConfigs() {
         configs = new ModConfigProvider();
@@ -41,6 +44,9 @@ public class ModConfigs {
         configs.addKeyValuePair(new Pair<>("enchanted_book.max.stack", 16), "int");
         configs.addKeyValuePair(new Pair<>("throwable_potion.cooldown", 20), "int");
         configs.addKeyValuePair(new Pair<>("totem_of_undying.cooldown", 20), "int");
+        configs.addKeyValuePair(new Pair<>("crystal_explosion.multiplier", 1f), "float");
+        configs.addKeyValuePair(new Pair<>("bed_explosion.multiplier", 1f), "float");
+        configs.addKeyValuePair(new Pair<>("anchor_explosion.multiplier", 1f), "float");
 
     }
 
@@ -57,6 +63,9 @@ public class ModConfigs {
         MAX_BOOK_STACK = CONFIG.getOrDefault("enchanted_book.max.stack", 16);
         THROWABLE_POTION_COOLDOWN = CONFIG.getOrDefault("throwable_potion.cooldown", 20);
         TOTEM_COOLDOWN = CONFIG.getOrDefault("totem_of_undying.cooldown", 20);
+        CRYSTAL_MULTIPLIER = (float) CONFIG.getOrDefault("crystal_explosion.multiplier",1f);
+        CRYSTAL_MULTIPLIER = (float) CONFIG.getOrDefault("bed_explosion.multiplier",1f);
+        CRYSTAL_MULTIPLIER = (float) CONFIG.getOrDefault("anchor_explosion.multiplier",1);
        // System.out.println("All " + configs.getConfigList().size() + " have been set properly");
     }
 }
